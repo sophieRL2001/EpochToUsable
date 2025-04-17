@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Epoch Time Converter</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        #fileInputLabel {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        #csvFileInput {
+            display: none; /* Hide the default ugly input */
+        }
+        #status {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 20px; /* Prevent layout shift */
+        }
+        #downloadLink {
+            display: none; /* Hidden initially */
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        #downloadLink:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        .processing {
+            color: orange;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            white-space: pre-wrap; /* Allow wrapping */
+            word-wrap: break-word; /* Break long words/lines */
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSV Epoch Time Converter</h1>
+
+    <p>Upload a CSV file containing a column named "time" with epoch timestamps (like <code>1744674946890266400</code> - nanoseconds assumed).</p>
+    <p>The script will convert the "time" column to the format <code>YYYY-MM-DD HH:MM:SS.mmm</code> and allow you to download the modified file.</p>
+
+    <!-- Styled file input -->
+    <label for="csvFileInput" id="fileInputLabel">1. Choose CSV File</label>
+    <input type="file" id="csvFileInput" accept=".csv">
+
+    <div id="status"></div>
+
+    <a href="#" id="downloadLink">3. Download Fixed CSV</a>
+
+    <hr>
+    <h2>Notes:</h2>
+    <ul>
+        <li>The script looks for a header column named exactly "time" (case-insensitive).</li>
+        <li>It assumes the epoch time is in <strong>nanoseconds</strong> based on your example. If it's seconds or milliseconds, the conversion logic needs adjustment.</li>
+        <li>This script processes the file entirely in your browser. No data is sent to any server.</li>
+        <li><strong>Limitation:</strong> This uses basic CSV parsing (splitting by lines and commas). It might not work correctly with complex CSVs containing commas within quoted fields or escaped quotes. For robust parsing, a dedicated library would be needed.</li>
+        <li>Large files might take some time or cause browser performance issues.</li>
+    </ul>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
